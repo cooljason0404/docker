@@ -1,6 +1,6 @@
 # This create php
 # Version 1
-# Author: Jason
+# Author: Jason <cooljason0404@gmail.com>
 
 # CentOS
 FROM centos:7

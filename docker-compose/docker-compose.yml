@@ -1,0 +1,49 @@
+version: '3'
+services:
+    nginx:
+        image: nginx:1.15.8
+        ports:
+            - "8080:80"
+        depends_on:
+            - "php"
+        volumes:
+            - "./conf.d:/usr/local/nginx/conf/conf.d"
+            - htdocs:/var/htdocs/
+        restart: always
+        networks:
+            - app_net
+        container_name: "compose-nginx"
+    php:
+        image: php:7.2.13
+        depends_on:
+            - "mysql"
+        volumes:
+            - "./php-fpm.d:/usr/local/php/etc/php-fpm.d"
+            - htdocs:/var/htdocs/
+        restart: always
+        networks:
+            - app_net
+        container_name: "compose-php"
+    mysql:
+        image: mysql:5.7
+        volumes:
+            - db:/usr/local/mysql/data
+        restart: always
+        environment:
+            - MYSQL_ROOT_PASSWORD=9gHyumvL0i%s
+            - MYSQL_DATABASE=im
+            - MYSQL_USER=online
+            - MYSQL_PASSWORD=s39Yj2PyPMmy
+        networks:
+            app_net:
+                ipv4_address: 10.10.10.1
+        container_name: "compose-mysql"
+volumes:
+    htdocs:
+    db:
+networks:
+    app_net:
+        driver: bridge
+        ipam:
+            config:
+                - subnet: 10.10.0.0/16

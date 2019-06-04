@@ -1,0 +1,84 @@
+# 格式化HDFS
+hdfs namenode -format
+
+# 啟動NameNode與DataNode的daemon
+./start-dfs.sh
+
+# 啟動Yarn
+./start-yarn.sh
+
+# 複製檔案至HDFS
+hadoop fs -put test.txt /
+# (本地)
+hadoop fs -copyFromLocal test.txt /
+
+# 查詢檔案清單
+hadoop fs -ls /
+
+# 刪除HDFS上的檔案/資料夾 檔案搬移到垃圾桶資料夾(trash directory)內
+hadoop fs -rm -r /testFolder
+hadoop fs -rm /test_rename.txt
+
+# 手動清空垃圾桶
+hadoop fs -expunge
+
+# 直接刪除跳過垃圾桶保護機制 -skipTrash
+hadoop fs -rm -skipTrash /test_rename.txt
+
+# hadoop環境啟用
+source /opt/hadoop/etc/hadoop/hadoop-env.sh
+
+# 測試hadoop安裝與配置是否成功
+hadoop jar /opt/mahout/mahout-examples-0.11.2-job.jar org.apache.mahout.clustering.syntheticcontrol.kmeans.Job
+
+
+# 設定主機名稱 #
+hostnamectl  set-hostname cjason0404
+
+172.17.0.2      master
+172.17.0.3      slave1
+172.17.0.4      slave2
+
+#####環境變數設定
+
+#JAVA_HOME
+export JAVA_HOME=/usr/local/jdk
+export PATH=$PATH:$JAVA_HOME/bin
+
+#MAVEN_HOME
+export MAVEN_HOME=/usr/local/apache-maven
+export PATH=$PATH:$MAVEN_HOME/bin
+
+#ANT_HOME
+export ANT_HOME=/usr/local/apache-ant
+export PATH=$PATH:$ANT_HOME/bin
+
+#LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/usr/local/protobuf
+export PATH=$PATH:$LD_LIBRARY_PATH
+
+#HADOOP
+export HADOOP_HOME=/opt/hadoop
+export HADOOP_INSTALL=$HADOOP_HOME
+export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop
+export HADOOP_MAPRED_HOME=$HADOOP_HOME
+export HADOOP_COMMON_HOME=$HADOOP_HOME
+export HADOOP_HDFS_HOME=$HADOOP_HOME
+export HADOOP_OPTS="-Djava.library.path=$HADOOP_HOME/lib/native"
+export HADOOP_LIBEXEC_DIR=$HADOOP_HOME/libexec
+export YARN_HOME=$HADOOP_HOME
+export HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_HOME/lib/native
+export PATH=$PATH:$HADOOP_HOME/sbin:$HADOOP_HOME/bin
+
+#MAHOUT
+export MAHOUT_HOME=/opt/mahout
+export MAHOUT_CONF_DIR=$MAHOUT_HOME/conf
+export PATH=$PATH:$MAHOUT_HOME/conf:$MAHOUT_HOME/bin
+
+#SPARK
+export SPARK_HOME=/opt/spark
+export PATH=$SPARK_HOME/bin:$PATH
+
+#PYTHON
+export PYTHONPATH=$SPARK_HOME/python:$SPARK_HOME/python/lib/py4j-0.10.7-src.zip:$PYTHONPATH
+export PYSPARK_PYTHON=python3

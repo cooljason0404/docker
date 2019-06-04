@@ -1,0 +1,19 @@
+/usr/local/mysql/bin/mysqld --initialize-insecure --user=mysql
+/usr/local/mysql/bin/mysqld_safe --daemonize --datadir=/usr/local/mysql/data --pid-file=/usr/local/mysql/data/mysqld.pid
+/usr/local/mysql/bin/mysql -uroot --skip-password
+#printf "set password=password('online!!#');\n"
+#printf "exit;\n"
+
+簡單快速指令: 
+
+CREATE DATABASE `databasename`;
+
+CREATE USER 'user'@'localhost' IDENTIFIED BY 'password';
+
+GRANT ALL PRIVILEGES ON databasename.* TO 'user'@'localhost';
+
+FLUSH PRIVILEGES;
+
+GRANT ALL PRIVILEGES ON databasename.* TO 'online'@'%.%.%.%';
+
+FLUSH PRIVILEGES;

@@ -1,0 +1,37 @@
+# image list
+docker images
+
+docker pull xxxx
+
+docker rmi -f xxxx
+
+docker push xxxx
+
+# contaniner list all
+docker ps -a
+
+#
+docker rm -f xxxx
+
+#
+docker run -dit --name hadoop --privileged=true -p 50070:50070 -p 8088:8088 -v /home/online/docker:/data/ hadoop:v3 /usr/sbin/init
+docker run -dit --name slave1 --privileged=true -v /home/docker/docker:/mnt/data/ spark:master /usr/sbin/init
+docker run -dit --name train --privileged=true -v /home/docker/work_space:/mnt/work_space spark /usr/sbin/init
+docker run -dit --name train --privileged=true -v /home/docker/work_space:/mnt/work_space spark:train /usr/sbin/init
+docker run -dit --name train --userns=host .....
+
+#
+docker exec -it train /bin/bash
+
+
+
+
+
+
+
+
+
+
+# docker 使用中遇到的问题记录： cgroups: cannot find cgroup mount destination: unknown.
+sudo mkdir /sys/fs/cgroup/systemd
+sudo mount -t cgroup -o none,name=systemd cgroup /sys/fs/cgroup/systemd
